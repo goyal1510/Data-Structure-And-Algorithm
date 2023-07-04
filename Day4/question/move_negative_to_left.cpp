@@ -1,6 +1,10 @@
 #include<iostream>
 #include<vector>
 using namespace std;
+
+void swap(){
+    
+}
 int main()
 {
     vector<int> arr{1,2,3,-4,-5,3,-2};

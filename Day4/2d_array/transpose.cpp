@@ -38,5 +38,6 @@ int main(int argc, char const *argv[])
     func1(arr,3,3);
     func(arr,3,3);
     
+    
     return 0;
 }
