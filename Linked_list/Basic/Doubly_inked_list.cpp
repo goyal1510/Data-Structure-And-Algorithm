@@ -119,21 +119,88 @@ void insertAtPosition(node *&head, node *&tail, int position, int data)
     prevNode->next = newNode;
     newNode->prev = prevNode;
 }
+
+void deleteAtStart(node *&head, node *&tail)
+{
+
+    if (head == NULL)
+    {
+        cout << "The LL is empty " << endl;
+    }
+    else
+    {
+
+        node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        head->prev = NULL;
+        delete temp;
+    }
+}
+
+void deleteAtEnd(node *&head, node *&tail)
+{
+    if (head == NULL)
+    {
+        cout << "The LL is empty " << endl;
+    }
+    else
+    {
+        int len = getLength(head);
+        int i = 1;
+        node *prevNode = head;
+        node *temp = tail;
+        while (i < len - 1)
+        {
+            prevNode = prevNode->next;
+            i++;
+        }
+        node *curr = prevNode->next;
+
+        prevNode->next = NULL;
+        curr->prev = NULL;
+        tail = prevNode;
+    }
+}
+void deleteAtPosition(node *&head, node *&tail, int position)
+{
+
+    if (head == NULL)
+    {
+        cout << "LL is already empty ";
+    }
+    else if (position == 1)
+    {
+        deleteAtStart(head, tail);
+    }
+    else if (position == getLength(head))
+    {
+        deleteAtEnd(head, tail);
+    }
+    else
+    {
+        int i = 1;
+        node *prevNode = head;
+        while (i < position - 1)
+        {
+            prevNode = prevNode->next;
+            i++;
+        }
+        node *curr = prevNode->next;
+
+        node *temp = curr;
+        prevNode->next = curr->next;
+        curr->next->prev = prevNode;
+        temp->next = NULL;
+        temp->prev = NULL;
+
+        delete temp;
+    }
+}
 int main(int argc, char const *argv[])
 {
 
-    // node *first = new node(1);
-    // node *second = new node(2);
-    // node *third = new node(3);
-
-    // first->next = second;
-    // second->prev = first;
-
-    // second->next = third;
-    // third->prev = second;
-    // node *head = first;
-
-    node *head = NULL;
+      node *head = NULL;
     node *tail = NULL;
 
     insertAtStart(head, tail, 1);
@@ -148,6 +215,17 @@ int main(int argc, char const *argv[])
     printNode(head);
     cout << endl;
     insertAtPosition(head, tail, 2, 6);
+    printNode(head);
+    cout << endl;
+
+    deleteAtStart(head, tail);
+    printNode(head);
+    cout << endl;
+
+    deleteAtEnd(head, tail);
+    printNode(head);
+    cout << endl;
+    deleteAtPosition(head, tail, 2);
     printNode(head);
     cout << endl;
     return 0;
